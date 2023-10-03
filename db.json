@@ -1,5 +1,8 @@
 {
-    "users": [],
-    "moodboards": [],
+    "users": [
+        {"id": 1, "name": "Myra"}
+    ],
+    "boards": [],
     "photos": []
 }
+

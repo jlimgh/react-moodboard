@@ -1,11 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchUsers } from '../thunks/fetchUsers';
 
+// Using Async Thunk Functions
 const usersSlice = createSlice({
     name: 'users',
     initialState: {
-        data: []
+        data: [],
+        isLoading: false,
+        error: null
     },
-    reducers: {}
+    extraReducers(builder) {
+        // watch for action types from thunks
+        builder.addCase(fetchUsers.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(fetchUsers.fulfilled, (state, action) => {
+            state.isLoading = false;
+            //payload prop is auto created when successful with the data
+            state.data = action.payload;
+        });
+        builder.addCase(fetchUsers.rejected, (state, action) => {
+            state.isLoading = false;
+            // error prop is auto created 
+            state.error = action.error;
+        });
+    }
 });
 
 export const usersReducer = usersSlice.reducer;
