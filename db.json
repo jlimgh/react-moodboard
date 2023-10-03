@@ -1,8 +1,10 @@
 {
-    "users": [
-        {"id": 1, "name": "Myra"}
-    ],
-    "boards": [],
-    "photos": []
+  "users": [
+    {
+      "id": 1,
+      "name": "Myra"
+    }
+  ],
+  "boards": [],
+  "photos": []
 }
-

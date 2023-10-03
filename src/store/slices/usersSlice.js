@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchUsers } from '../thunks/fetchUsers';
+import { addUser } from '../thunks/addUser';
 
 // Using Async Thunk Functions
 const usersSlice = createSlice({
@@ -22,6 +23,17 @@ const usersSlice = createSlice({
         builder.addCase(fetchUsers.rejected, (state, action) => {
             state.isLoading = false;
             // error prop is auto created 
+            state.error = action.error;
+        });
+        builder.addCase(addUser.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(addUser.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.data.push(action.payload);
+        });
+        builder.addCase(addUser.rejected, (state, action) => {
+            state.isLoading = false;
             state.error = action.error;
         });
     }
