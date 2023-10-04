@@ -1,37 +1,26 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { fetchUsers, addUser } from "../store";
 import Button from "./Button";
 import Skeleton from "./Skeleton";
+import { useThunk } from '../hooks/use-thunk';
 
 function UsersList() {
     //state inside component method
-    const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-    const [loadingUsersError, setLoadingUsersError] = useState(null);
-    const [isCreatingUser, setIsCreatingUser] = useState(false);
-    const [creatingUserError, setCreatingUserError] = useState(null);
-    const dispatch = useDispatch();
+    const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
+    const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
+
     const { data } = useSelector((state) => {
         return state.users;
     })
 
     useEffect(() => {
-        setIsLoadingUsers(true);
-        //distach gets a promise from async thunk, that always gives .then whether succuss or fail
-        //unwrap makes it act like reg promise
-        dispatch(fetchUsers())
-            .unwrap()
-            .catch((err) => setLoadingUsersError(err))
-            .finally(() => setIsLoadingUsers(false));
-    }, [dispatch])
+       doFetchUsers();
+    }, [doFetchUsers])
 
 
     const handleAddUser = () => {
-        setIsCreatingUser(true);
-        dispatch(addUser())
-            .unwrap()
-            .catch((err) => setCreatingUserError(err))
-            .finally(() => setIsCreatingUser(false));
+        doCreateUser();
     }  
 
     if (isLoadingUsers) {
