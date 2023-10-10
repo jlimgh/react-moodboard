@@ -1,10 +1,34 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Myra"
+      "name": "Damon Feeney",
+      "id": 3
+    },
+    {
+      "name": "Betsy Cummings DVM",
+      "id": 6
+    },
+    {
+      "name": "Mr. Homer Torp",
+      "id": 7
     }
   ],
-  "boards": [],
+  "boards": [
+    {
+      "id": 119,
+      "title": "Camping Trip",
+      "userId": 3
+    },
+    {
+      "userId": 3,
+      "title": "Bespoke Steel Table",
+      "id": 120
+    },
+    {
+      "userId": 7,
+      "title": "Luxurious Bronze Fish",
+      "id": 121
+    }
+  ],
   "photos": []
 }
