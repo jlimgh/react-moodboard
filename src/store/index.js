@@ -2,15 +2,18 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { usersReducer } from "./slices/usersSlice";
 import { boardsApi } from "./apis/boardsApi";
+import { photosApi } from "./apis/photosApi";
 
 export const store = configureStore({
     reducer: {
         users: usersReducer,
-        [boardsApi.reducerPath]: boardsApi.reducer
+        [boardsApi.reducerPath]: boardsApi.reducer,
+        [photosApi.reducerPath]: photosApi.reducer
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware()
             .concat(boardsApi.middleware)
+            .concat(photosApi.middleware)
     }
 });
 
@@ -25,3 +28,8 @@ export {
     useAddBoardMutation,
     useRemoveboardMutation
 } from './apis/boardsApi';
+export {
+    useFetchPhotosQuery,
+    useAddPhotoMutation,
+    useRemovePhotoMutation
+} from './apis/photosApi';

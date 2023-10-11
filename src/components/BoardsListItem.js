@@ -2,6 +2,7 @@ import Button from "./Button";
 import { useRemoveboardMutation } from "../store";
 import ExpandablePanel from "./ExpandablePanel";
 import { GoXCircle} from 'react-icons/go';
+import PhotosList from "./PhotosList";
 
 function BoardsListItem ({ board }) {
     const [removeBoard, results] = useRemoveboardMutation();
@@ -19,7 +20,7 @@ function BoardsListItem ({ board }) {
     )
 
     return <ExpandablePanel key={board.id} header={header}>
-        List of photos in the board;
+        <PhotosList board={board}/>
     </ExpandablePanel>
 };
 
