@@ -1,15 +1,24 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { fetchUsers, addUser } from "../store";
-import Button from "./Button";
+import { fetchUsers } from "../store";
 import Skeleton from "./Skeleton";
 import { useThunk } from '../hooks/use-thunk';
 import UsersListItem from "./UsersListItem";
+import AddUser from "./AddUser";
 
 function UsersList() {
     //state inside component method
+    // const dispatch = useDispatch();
+    // const { name } = useSelector((state) => {
+    //     return {
+    //         name: state.form.name,
+    //     }
+    // })
+    // const handleNameChange = (event) => {
+    //     dispatch(changeName(event.target.value))
+    // }
     const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
-    const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
+    // const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
 
     const { data } = useSelector((state) => {
         return state.users;
@@ -20,9 +29,9 @@ function UsersList() {
     }, [doFetchUsers])
 
 
-    const handleAddUser = () => {
-        doCreateUser();
-    }  
+    // const handleAddUser = () => {
+    //     doCreateUser({ name });
+    // }  
 
     let content;
     if (isLoadingUsers) {
@@ -40,10 +49,7 @@ function UsersList() {
             <h1 className="m-2 text-xl">
                 Users
             </h1>
-                <Button loading={isCreatingUser} onClick={handleAddUser}>
-                + Add User
-                </Button>
-            { creatingUserError && 'Error creating user...'}
+            <AddUser />
         </div>
         <div>{content}</div>
     </div>;
