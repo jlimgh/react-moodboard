@@ -1,12 +1,14 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { usersReducer } from "./slices/usersSlice";
+import { formReducer, changeName } from "./slices/formSlice";
 import { boardsApi } from "./apis/boardsApi";
 import { photosApi } from "./apis/photosApi";
 
 export const store = configureStore({
     reducer: {
         users: usersReducer,
+        form: formReducer,
         [boardsApi.reducerPath]: boardsApi.reducer,
         [photosApi.reducerPath]: photosApi.reducer
     },
@@ -20,6 +22,7 @@ export const store = configureStore({
 setupListeners(store.dispatch);
 
 //use as central communication file for all react/redux import/export
+export { changeName };
 export * from './thunks/fetchUsers';
 export * from './thunks/addUser';
 export * from './thunks/removeUser';
